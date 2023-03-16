@@ -1,13 +1,12 @@
+from api.permissions import IsAdminPermission, IsUserPermission
 from rest_framework import filters, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, mixins
-
-from api.permissions import IsAdminPermission, IsUserPermission
 from users.models import User
 from users.serializers import (ConfirmationCodeSerializer, TokenSerializer,
-                               UserMeSerializer, UserSerializer)
+                               UserMeSerializer, UsersSerializer)
 from users.verifications import send_code
 
 
@@ -17,7 +16,7 @@ class CreateModelViewSet(GenericViewSet, mixins.CreateModelMixin):
 
 class ConfirmationViewSet(CreateModelViewSet):
     """
-    ## Получения ключа верификации.
+    Получения ключа верификации.
     При обращении к эндпоинту `/auth/token/` с валидными данными создается
     новый пользователь, на электронную почту отправляется
     ключ верификации, который в последующем используется для
@@ -39,7 +38,7 @@ class ConfirmationViewSet(CreateModelViewSet):
 
 class TokenView(CreateModelViewSet):
     """
-    ## Получение токена.
+    Получение токена.
     При обращении к эндпоинту `/auth/token/` с валидными данными
     создается/обновляется JWT-Токен. Токен используется для аутентификации
     и передаётся в заголовке при каждом запросе под ключом `Bearer`.
@@ -59,12 +58,12 @@ class TokenView(CreateModelViewSet):
 
 class UserViewSet(viewsets.ModelViewSet):
     """
-    ## Вьюсет пользователей.
+    Вьюсет пользователей.
     При эндпоинте "users/me/" вызвается функция `get_me()`.
     GET-запрос возвращает информацию о пользователе.
     PATCH-запрос обновляет информацию о пользователе.
     """
-    serializer_class = UserSerializer
+    serializer_class = UsersSerializer
     queryset = User.objects.all()
     lookup_field = 'username'
     filter_backends = (filters.SearchFilter, )

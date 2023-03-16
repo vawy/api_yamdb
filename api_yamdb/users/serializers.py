@@ -54,7 +54,8 @@ class TokenSerializer(serializers.Serializer):
         return attrs
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UsersSerializer(serializers.ModelSerializer):
+    """Сериализатор для модели User."""
     email = serializers.EmailField(
         max_length=150,
         validators=[UniqueValidator(queryset=User.objects.all())]
@@ -76,10 +77,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = (
-            'username', 'email', 'first_name',
-            'last_name', 'bio', 'role'
-        )
+        fields = ('username', 'email', 'first_name',
+                  'last_name', 'bio', 'role')
 
 
 class UserMeSerializer(UserSerializer):
