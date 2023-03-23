@@ -10,7 +10,7 @@ Django 2.2.16 и DRF 3.12.4
 #### Клонирование репозитория
 Клонировать репозиторий и перейти в него в командной строке:
 
-    git@github.com:EreshkoDR/api_yamdb.git
+    git clone git@github.com:vawy/api_yamdb.git
     cd api_yamdb
 #### Виртуальное окружение
 Cоздать виртуальное окружение:
